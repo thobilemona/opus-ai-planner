@@ -34,7 +34,9 @@ export async function runObject<T>(
       }
     }
     if (NoObjectGeneratedError.isInstance(error)) {
-      console.error("[ai] no object generated; text length:", error.text?.length ?? 0);
+      throw new Error(
+        `DEBUG len=${error.text?.length ?? 0} cause=${String((error as { cause?: unknown }).cause)} text=${(error.text ?? "").slice(0, 300)}`,
+      );
     }
     throw new Error(
       error instanceof Error ? `AI request failed: ${error.message}` : "AI request failed",

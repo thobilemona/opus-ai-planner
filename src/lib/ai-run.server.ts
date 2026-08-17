@@ -22,6 +22,7 @@ export async function runObject<T>(
     return output;
   } catch (error) {
     if (NoObjectGeneratedError.isInstance(error) && error.text) {
+      console.error("[ai] raw text:", error.text?.slice(0, 500));
       const match = error.text.match(/\{[\s\S]*\}/);
       if (match) {
         try {
@@ -31,6 +32,9 @@ export async function runObject<T>(
           /* fall through */
         }
       }
+    }
+    if (NoObjectGeneratedError.isInstance(error)) {
+      console.error("[ai] no object generated; text length:", error.text?.length ?? 0);
     }
     throw new Error(
       error instanceof Error ? `AI request failed: ${error.message}` : "AI request failed",

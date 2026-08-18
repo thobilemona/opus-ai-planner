@@ -1,161 +1,88 @@
-# DayPilot AI
+# Aura — AI Smart Productivity Assistant
 
-Create a modern AI-powered Smart Productivity Assistant that combines a Smart Email Generator, Meeting Notes Summarizer, AI Task Planner, and Intelligent Schedule Manager into one seamless application.
+Aura is a unified AI executive assistant that combines email generation, meeting summarization, task planning, and intelligent scheduling into one seamless workspace. Information flows automatically between modules — turn an email into a task, a meeting into a schedule, or a task into a planned day.
 
-Core Features
+![Aura](https://opus-ai-planner.lovable.app/og-image.png)
 
-1. Smart Email Generator
+## Features
 
-Generate professional emails from short instructions.
+- **Smart Email Generator** — Compose, reply, rewrite, shorten, expand, or improve emails in any tone. Aura automatically extracts follow-up tasks from the generated draft.
+- **Meeting Notes Summarizer** — Paste notes or transcripts and get key points, decisions, action items, deadlines, and next steps. Action items can be added to the task board in one click.
+- **AI Task Planner** — Turn messy notes into structured, prioritized tasks with categories, estimates, and due dates. Manage work on a Kanban-style board.
+- **Intelligent Schedule Manager** — Plan your day with AI. Drag tasks onto the calendar, avoid busy blocks, and keep deep work in the right slots.
+- **Unified Dashboard** — See a daily snapshot, quick actions, productivity stats, and AI recommendations from your personal Chief of Staff.
+- **Cross-Module Flow** — Emails and meetings create tasks; tasks become schedule blocks; everything stays in sync.
 
-Support formal, casual, friendly, business, and persuasive tones.
+## Tech Stack
 
-Automatically create subject lines.
+- **Framework:** [TanStack Start](https://tanstack.com/start) — full-stack React 19 with SSR and server functions
+- **Styling:** Tailwind CSS v4 with custom semantic design tokens
+- **AI:** Lovable AI Gateway with structured JSON outputs via Zod
+- **Language:** TypeScript
+- **Runtime:** Edge-first serverless (Cloudflare Workers)
 
-Rewrite, shorten, expand, and improve emails.
+## Project Structure
 
-Generate replies based on the user's input.
-
-Detect the purpose and tone of the email automatically.
-
-Provide options for different tones before sending.
-
-2. Meeting Notes Summarizer
-
-Allow users to paste or upload meeting notes, transcripts, or recordings.
-
-Automatically generate a concise meeting summary.
-
-Identify key discussion points.
-
-Extract decisions and important information.
-
-Identify action items and assign them to people when names are available.
-
-Detect deadlines and important dates.
-
-Create a "Next Steps" section automatically.
-
-3. AI Task Planner
-
-Convert emails, meeting notes, and user instructions into actionable tasks.
-
-Automatically prioritize tasks based on urgency and importance.
-
-Add deadlines, categories, labels, and estimated completion times.
-
-Break large tasks into smaller subtasks.
-
-Track task status: To Do, In Progress, Completed, and Overdue.
-
-Allow users to edit, delete, reschedule, or complete tasks.
-
-4. Intelligent Schedule Manager
-
-Automatically turn tasks, deadlines, and meetings into a daily or weekly schedule.
-
-Suggest the best time to complete tasks.
-
-Avoid scheduling conflicts.
-
-Prioritize urgent and high-impact work.
-
-Allow users to drag and drop tasks on a calendar.
-
-Provide Daily, Weekly, and Monthly calendar views.
-
-Send reminders for upcoming meetings, deadlines, and tasks.
-
-AI Integration
-
-The application should connect all features together intelligently.
-
-For example:
-
-Email → Task → Schedule
-When the AI detects a task in an email, automatically create the task, identify its deadline, prioritize it, and suggest a time to complete it.
-
-Meeting → Summary → Tasks → Schedule
-After a meeting, automatically summarize the discussion, extract action items, create tasks, assign deadlines, and place them into the user's schedule.
-
-Task → Schedule
-When a new task is created, the AI should determine its priority and recommend an appropriate time slot.
-
-Dashboard
-
-Create a clean, professional dashboard containing:
-
-Today's schedule
-
-Upcoming meetings
-
-Priority tasks
-
-Overdue tasks
-
-Recent emails
-
-Recent meeting summaries
-
-AI recommendations
-
-Productivity statistics
-
-Include quick-action buttons:
-
-Generate Email | Summarize Meeting | Create Task | Plan My Day
-
-Design
-
-Use a modern, clean, professional SaaS interface with:
-
-Responsive desktop and mobile layouts
-
-Simple navigation sidebar
-
-Dashboard cards
-
-Calendar interface
-
-Task management board
-
-Email editor
-
-Meeting summary workspace
-
-Search and filtering
-
-Light and dark mode
-
-Clear typography and intuitive icons
-
-Smooth animations and transitions
-
-Main Goal
-
-Build the application as one unified AI productivity platform, not four separate tools. Information should flow automatically between emails, meetings, tasks, and schedules so the AI can help the user capture information → understand it → create tasks → prioritize work → schedule it → track completion.
-
-The overall experience should feel like having a personal AI executive assistant that organizes the user's entire workday automatically.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://opus-ai-planner.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/48bc76e0-7509-4d9e-af46-991abf69f23e).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```text
+src/
+  components/app/    # Shell, task cards, theme, shared UI
+  lib/               # AI schemas, server functions, store, types
+  routes/            # TanStack Router routes (Dashboard, Email, Meetings, Tasks, Schedule)
+  routes/__root.tsx  # App shell and layout
+  styles.css         # Tailwind v4 theme tokens
 ```
+
+Key files:
+
+- `src/lib/ai.functions.ts` — TanStack Start server functions for all AI operations
+- `src/lib/ai-schemas.ts` — Zod schemas that guarantee structured AI outputs
+- `src/lib/store.tsx` — Global state provider with localStorage persistence
+- `src/lib/types.ts` — Domain types for tasks, emails, meetings, and action items
+- `src/lib/ai-gateway.server.ts` — Secure AI gateway wrapper
+- `src/lib/ai-run.server.ts` — Structured-output AI runner
+
+## Getting Started
+
+Make sure you have [Node.js](https://nodejs.org/) and [Bun](https://bun.sh/) or npm installed.
+
+```bash
+# Install dependencies
+bun install
+
+# Run the dev server
+bun run dev
+```
+
+The app runs at `http://localhost:8080` by default.
+
+## Building for Production
+
+```bash
+bun run build
+```
+
+The output is ready for the edge serverless runtime.
+
+## AI Configuration
+
+Aura calls the Lovable AI Gateway from server functions. The gateway key is configured automatically in the Lovable environment; no manual API key is needed when running inside the Lovable platform.
+
+## Data & Privacy
+
+All user data is stored locally in the browser via `localStorage`. Nothing is sent to a backend database or shared with third parties beyond the AI processing request itself.
+
+## Roadmap Ideas
+
+- Cloud sync and multi-device support
+- Calendar integrations (Google Calendar, Outlook)
+- Team collaboration with shared workspaces
+- Voice-to-text meeting capture
+- Recurring task automation
+
+## License
+
+MIT — feel free to fork, modify, and ship your own version.
+
+---
+
+Built with [Lovable](https://lovable.dev).
